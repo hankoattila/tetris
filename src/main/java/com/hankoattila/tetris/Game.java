@@ -8,8 +8,8 @@ public class Game extends Pane {
 
     public void start() {
         Random rnd = new Random();
-        Blocks.createNewBlock(rnd.nextInt(2),this);
         createBlockList();
+        Blocks.createNewBlock(rnd.nextInt(Globals.blocks.size()), this);
         GameLoop gameLoop = new GameLoop();
         Globals.gameLoop = gameLoop;
         Globals.gameLoop.start();
@@ -19,7 +19,7 @@ public class Game extends Pane {
         Globals.blocks.add(Blocks.JBLOCK);
         Globals.blocks.add(Blocks.LBLOCK);
         Globals.blocks.add(Blocks.OBLOCK);
-//        Globals.blocks.add(Blocks.SBLOCK);
+        Globals.blocks.add(Blocks.SBLOCK);
 //        Globals.blocks.add(Blocks.TBLOCK);
 //        Globals.blocks.add(Blocks.ZBLOCK);
 
