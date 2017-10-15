@@ -4,7 +4,9 @@ import com.hankoattila.tetris.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class IBlock extends GameEntity implements Animatable, Interactable {
+
+
+public class IBlock extends Animatable implements Interactable {
 
     public IBlock(Pane pane, int xc, int yc) {
         super(pane);
@@ -19,14 +21,7 @@ public class IBlock extends GameEntity implements Animatable, Interactable {
         }
         setImage(new Image("square.png"));
         pane.getChildren().add(this);
-    }
 
-    public void step() {
-        setY(getY() + 4);
-        if (isOutOfBounds()) {
-            new JBlock(pane, 200, 0);
-            destroy();
-        }
 
     }
 

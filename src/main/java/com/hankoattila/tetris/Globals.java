@@ -1,7 +1,5 @@
 package com.hankoattila.tetris;
 
-import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +10,7 @@ public class Globals {
     public static List<GameEntity> newGameObjects = new ArrayList<GameEntity>(); // Holds game objects crated in this frame.
     public static List<GameEntity> oldGameObjects = new ArrayList<GameEntity>(); // Holds game objects that will be destroyed this frame.
     public static GameLoop gameLoop;
+    public static List<Enum> blocks = new ArrayList<Enum>();
     public static void removeGameObject(GameEntity toRemove) {
         oldGameObjects.add(toRemove);
     }

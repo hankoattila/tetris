@@ -4,7 +4,7 @@ import com.hankoattila.tetris.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class BodyBlock  extends GameEntity implements Animatable, Interactable {
+public class BodyBlock  extends Animatable implements  Interactable {
     protected BodyBlock(Pane pane, double xc, double yc) {
         super(pane);
         this.pane = pane;

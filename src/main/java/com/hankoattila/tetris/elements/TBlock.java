@@ -5,14 +5,12 @@ import com.hankoattila.tetris.GameEntity;
 import com.hankoattila.tetris.Interactable;
 import javafx.scene.layout.Pane;
 
-public class TBlock  extends GameEntity implements Animatable, Interactable {
-    protected TBlock(Pane pane) {
+public class TBlock  extends Animatable implements  Interactable {
+    public TBlock(Pane pane, int i, int i1) {
         super(pane);
     }
 
-    public void step() {
 
-    }
 
     public void apply(GameEntity block) {
 
