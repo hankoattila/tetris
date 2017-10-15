@@ -16,8 +16,8 @@ public class SBlock  extends Animatable implements  Interactable {
         setX(x);
         setY(y);
 
-        new BodyBlock(pane, x+31, y);
         new BodyBlock(pane, x, y-30);
+        new BodyBlock(pane, x+31, y-30);
         new BodyBlock(pane, x-31, y);
 
         setImage(new Image("square.png"));
