@@ -1,22 +1,36 @@
 package com.hankoattila.tetris.elements;
 
-import com.hankoattila.tetris.Animatable;
-import com.hankoattila.tetris.GameEntity;
-import com.hankoattila.tetris.Interactable;
-import com.hankoattila.tetris.Square;
+import com.hankoattila.tetris.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-public class IBlock  extends GameEntity implements Animatable, Interactable   {
+public class IBlock extends GameEntity implements Animatable, Interactable {
 
-    protected IBlock(Pane pane) {
+    public IBlock(Pane pane, int xc, int yc) {
         super(pane);
+        this.pane = pane;
+        Globals.objectIsFall = true;
+        setX(xc);
+        setY(yc);
+        int length = 30;
+        for (int i = 0; i < 3; i++) {
+            new BodyBlock(pane,xc,yc-length);
+            length+=30;
+        }
+        setImage(new Image("square.png"));
+        pane.getChildren().add(this);
     }
 
     public void step() {
+        setY(getY() + 4);
+        if (isOutOfBounds()) {
+            new JBlock(pane, 200, 0);
+            destroy();
+        }
 
     }
 
-    public void apply(Square square) {
+    public void apply(GameEntity block) {
 
     }
 
