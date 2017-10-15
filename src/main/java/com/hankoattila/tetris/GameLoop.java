@@ -2,6 +2,7 @@ package com.hankoattila.tetris;
 
 import javafx.animation.AnimationTimer;
 
+
 public class GameLoop extends AnimationTimer {
     public void handle(long now) {
         for (GameEntity gameObject : Globals.gameObjects) {
