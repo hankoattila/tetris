@@ -1,12 +1,17 @@
 package com.hankoattila.tetris;
 
+import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Globals {
-    public static List<GameEntity> gameObjects; //Holds game object that should be on display.
-    public static List<GameEntity> newGameObjects; // Holds game objects crated in this frame.
-    public static List<GameEntity> oldGameObjects; // Holds game objects that will be destroyed this frame.
+    public static boolean objectIsFall = false;
+    public static List<GameEntity> gameObjects = new ArrayList<GameEntity>(); //Holds game object that should be on display.
+    public static List<GameEntity> newGameObjects = new ArrayList<GameEntity>(); // Holds game objects crated in this frame.
+    public static List<GameEntity> oldGameObjects = new ArrayList<GameEntity>(); // Holds game objects that will be destroyed this frame.
+    public static GameLoop gameLoop;
     public static void removeGameObject(GameEntity toRemove) {
         oldGameObjects.add(toRemove);
     }

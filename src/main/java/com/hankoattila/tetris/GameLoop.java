@@ -8,9 +8,6 @@ public class GameLoop extends AnimationTimer {
             if (gameObject instanceof Animatable) {
                 Animatable animObject = (Animatable) gameObject;
                 animObject.step();
-                if (!Globals.objectIsFall){
-                    new Square(Globals.pane,500,500);
-                }
             }
         }
 
