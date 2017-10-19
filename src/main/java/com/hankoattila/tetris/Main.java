@@ -14,7 +14,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         Stage initialise = Gui.createStartWindow();
         Game game = new Game();
-        Scene scene = new Scene(game, 500, 500);
+        Scene scene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
         primaryStage.setTitle("Tetris");
         primaryStage.setScene(scene);
         primaryStage.show();

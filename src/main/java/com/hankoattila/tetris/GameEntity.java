@@ -21,7 +21,7 @@ public abstract class GameEntity extends ImageView {
 
     protected boolean isOutOfBounds() {
         if (getX() > 500|| getX() < 10 ||
-                getY() > 450) {
+                getY() >= Globals.END_OF_WINDOW) {
             return true;
         }
         return false;
