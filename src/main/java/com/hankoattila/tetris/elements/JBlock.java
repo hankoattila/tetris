@@ -10,7 +10,6 @@ public class JBlock extends Animatable implements  Interactable {
     public JBlock(Pane pane, int xc, int yc) {
         super(pane);
         this.pane = pane;
-        Globals.objectIsFall = true;
         setX(xc);
         setY(yc);
 

@@ -11,7 +11,6 @@ public class IBlock extends Animatable implements Interactable {
     public IBlock(Pane pane, int xc, int yc) {
         super(pane);
         this.pane = pane;
-        Globals.objectIsFall = true;
         setX(xc);
         setY(yc);
         int length = 30;
