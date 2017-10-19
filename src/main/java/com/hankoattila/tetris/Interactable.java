@@ -2,7 +2,7 @@ package com.hankoattila.tetris;
 
 public interface Interactable {
 
-    void apply(GameEntity block);
+    void apply();
 
     String getMessage();
 

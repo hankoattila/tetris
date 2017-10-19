@@ -1,9 +1,10 @@
 package com.hankoattila.tetris.elements;
 
-import com.hankoattila.tetris.*;
+import com.hankoattila.tetris.Animatable;
+import com.hankoattila.tetris.Globals;
+import com.hankoattila.tetris.Interactable;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-
 
 
 public class IBlock extends Animatable implements Interactable {
@@ -14,18 +15,16 @@ public class IBlock extends Animatable implements Interactable {
         setX(x);
         setY(y);
         int length = Globals.BLOCK_SIZE;
-        block.add(this);
+        blockList.add(this);
         for (int i = 0; i < 3; i++) {
-            block.add(new BodyBlock(pane,x,y-length));
-            length+=Globals.BLOCK_SIZE;
+            blockList.add(new BodyBlock(pane, x, y - length, this));
+            length += Globals.BLOCK_SIZE;
         }
         setImage(new Image("square.png"));
         pane.getChildren().add(this);
     }
 
-    public void apply(GameEntity block) {
 
-    }
 
     public String getMessage() {
         return null;

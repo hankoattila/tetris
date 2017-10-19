@@ -16,8 +16,7 @@ public class BlockDown extends GameEntity implements Interactable {
         pane.getChildren().add(this);
     }
 
-    public void apply(GameEntity block) {
-
+    public void apply() {
     }
 
     public String getMessage() {

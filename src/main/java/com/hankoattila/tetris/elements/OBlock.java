@@ -5,9 +5,9 @@ import com.hankoattila.tetris.GameEntity;
 import com.hankoattila.tetris.Interactable;
 import javafx.scene.layout.Pane;
 
-public class OBlock  extends Animatable implements Interactable {
+public class OBlock{
     public OBlock(Pane pane, int x, int y) {
-        super(pane);
+
 
     }
 

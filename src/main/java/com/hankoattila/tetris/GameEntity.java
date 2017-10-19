@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class GameEntity extends ImageView {
     protected Pane pane;
-    protected List<GameEntity> block = new ArrayList<GameEntity>();
+    protected List<GameEntity> blockList = new ArrayList<GameEntity>();
 
     protected GameEntity(Pane pane) {
         this.pane = pane;

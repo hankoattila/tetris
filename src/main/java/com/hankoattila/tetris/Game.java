@@ -1,6 +1,5 @@
 package com.hankoattila.tetris;
 
-import com.hankoattila.tetris.elements.ZBlock;
 import javafx.scene.layout.Pane;
 
 import java.util.Random;
@@ -15,7 +14,8 @@ public class Game extends Pane {
         Globals.gameLoop = gameLoop;
         Globals.gameLoop.start();
     }
-    private void createBlockList(){
+
+    private void createBlockList() {
         Globals.blocks.add(Blocks.IBLOCK);
         Globals.blocks.add(Blocks.JBLOCK);
 //        Globals.blocks.add(Blocks.LBLOCK);
