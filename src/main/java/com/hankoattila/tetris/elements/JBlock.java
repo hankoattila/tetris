@@ -24,8 +24,4 @@ public class JBlock extends Animatable implements Interactable {
     }
 
 
-
-    public String getMessage() {
-        return null;
-    }
 }
