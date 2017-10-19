@@ -9,7 +9,6 @@ public class BodyBlock extends Animatable implements Interactable {
     protected BodyBlock(Pane pane, double xc, double yc) {
         super(pane);
         this.pane = pane;
-        Globals.objectIsFall = true;
         speed = 4;
         setX(xc);
         setY(yc);
@@ -19,8 +18,7 @@ public class BodyBlock extends Animatable implements Interactable {
 
     public void step() {
         setY(getY() + speed);
-        Globals.objectIsFall = true;
-        if (isOutOfBounds() || !Globals.objectIsFall) {
+        if (isOutOfBounds()) {
             destroy();
             new BlockDown(pane,getX(),getY());
         }
