@@ -1,6 +1,7 @@
 package com.hankoattila.tetris;
 
 
+import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
 import java.util.Random;
@@ -14,12 +15,20 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
 
     public void step() {
-        setY(getY() + Globals.BLOCK_SIZE);
-        if (isOutOfBounds()) {
-            new BlockDown(pane,getX(),getY());
-            destroy();
+        if (isOutOfBounds() || Globals.positions.contains(new Point2D(getX(),getY()+Globals.BLOCK_SIZE))) {
+            int blockLength = block.size();
+            for (int i = 0; i < blockLength; i++) {
+                Globals.positions.add(new Point2D(block.get(0).getX(),block.get(0).getY()));
+                block.get(0).destroy();
+                block.remove(0);
+            }
+            for (Point2D point2D: Globals.positions){
+                new BlockDown(pane,point2D.getX(),point2D.getY());
+            }
             Random rnd = new Random();
             Blocks.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
+        } else {
+            setY(getY() + Globals.BLOCK_SIZE);
         }
     }
 

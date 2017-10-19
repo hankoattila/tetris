@@ -9,7 +9,6 @@ public class GameLoop extends AnimationTimer {
     public void handle(long now) {
         tetrisStep++;
         if (tetrisStep == Globals.speed){
-
             for (GameEntity gameObject : Globals.gameObjects) {
                 if (gameObject instanceof Animatable) {
                     Animatable animObject = (Animatable) gameObject;

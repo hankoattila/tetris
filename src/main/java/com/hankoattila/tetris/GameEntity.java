@@ -3,8 +3,12 @@ package com.hankoattila.tetris;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class GameEntity extends ImageView {
     protected Pane pane;
+    protected List<GameEntity> block = new ArrayList<GameEntity>();
 
     protected GameEntity(Pane pane) {
         this.pane = pane;

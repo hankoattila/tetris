@@ -13,15 +13,14 @@ public class IBlock extends Animatable implements Interactable {
         this.pane = pane;
         setX(xc);
         setY(yc);
-        int length = 30;
+        int length = Globals.BLOCK_SIZE;
+        block.add(this);
         for (int i = 0; i < 3; i++) {
-            new BodyBlock(pane,xc,yc-length);
-            length+=30;
+            block.add(new BodyBlock(pane,xc,yc-length));
+            length+=Globals.BLOCK_SIZE;
         }
         setImage(new Image("square.png"));
         pane.getChildren().add(this);
-
-
     }
 
     public void apply(GameEntity block) {

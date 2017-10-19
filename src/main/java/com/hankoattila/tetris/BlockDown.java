@@ -17,10 +17,7 @@ public class BlockDown extends GameEntity implements Interactable {
     }
 
     public void apply(GameEntity block) {
-        new BlockDown(pane,block.getX(),block.getY());
-        block.destroy();
 
-        Random rnd = new Random();
     }
 
     public String getMessage() {

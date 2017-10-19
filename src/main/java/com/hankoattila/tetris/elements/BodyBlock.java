@@ -6,22 +6,20 @@ import javafx.scene.layout.Pane;
 
 public class BodyBlock extends Animatable implements Interactable {
     int speed;
+
     protected BodyBlock(Pane pane, double xc, double yc) {
         super(pane);
         this.pane = pane;
         speed = 4;
         setX(xc);
         setY(yc);
+
         pane.getChildren().add(this);
         setImage(new Image("square.png"));
     }
 
     public void step() {
         setY(getY() + Globals.BLOCK_SIZE);
-        if (isOutOfBounds()) {
-            destroy();
-            new BlockDown(pane,getX(),getY());
-        }
     }
 
     public void apply(GameEntity block) {

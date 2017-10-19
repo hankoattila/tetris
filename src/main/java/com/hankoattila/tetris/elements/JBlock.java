@@ -12,10 +12,10 @@ public class JBlock extends Animatable implements  Interactable {
         this.pane = pane;
         setX(xc);
         setY(yc);
-
-        new BodyBlock(pane, xc, yc-30);
-        new BodyBlock(pane, xc-31, yc-30);
-        new BodyBlock(pane, xc-62, yc-30);
+        block.add(this);
+        block.add(new BodyBlock(pane, xc, yc-Globals.BLOCK_SIZE));
+        block.add(new BodyBlock(pane, xc-Globals.BLOCK_SIZE, yc-Globals.BLOCK_SIZE));
+        block.add(new BodyBlock(pane, xc-62, yc-Globals.BLOCK_SIZE));
 
         setImage(new Image("square.png"));
         pane.getChildren().add(this);
