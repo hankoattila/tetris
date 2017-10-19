@@ -21,15 +21,14 @@ public class BodyBlock extends Animatable implements Interactable {
         setImage(new Image("square.png"));
     }
 
+    @Override
     public void step() {
         setY(getY() + Globals.BLOCK_SIZE);
     }
 
+    @Override
     public void apply() {
-        ((Interactable)parent).apply();
+        ((Interactable) parent).apply();
     }
 
-    public String getMessage() {
-        return null;
-    }
 }

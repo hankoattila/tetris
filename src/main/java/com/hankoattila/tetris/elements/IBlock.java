@@ -24,9 +24,4 @@ public class IBlock extends Animatable implements Interactable {
         pane.getChildren().add(this);
     }
 
-
-
-    public String getMessage() {
-        return null;
-    }
 }

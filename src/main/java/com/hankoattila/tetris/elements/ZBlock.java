@@ -13,17 +13,12 @@ public class ZBlock extends Animatable implements Interactable {
         this.pane = pane;
         setX(x);
         setY(y);
-        blockList.add(new BodyBlock(pane, x, y - Globals.BLOCK_SIZE,this));
-        blockList.add(new BodyBlock(pane, x + Globals.BLOCK_SIZE, y,this));
-        blockList.add(new BodyBlock(pane, x - Globals.BLOCK_SIZE, y -Globals.BLOCK_SIZE,this));
+        blockList.add(new BodyBlock(pane, x, y - Globals.BLOCK_SIZE, this));
+        blockList.add(new BodyBlock(pane, x + Globals.BLOCK_SIZE, y, this));
+        blockList.add(new BodyBlock(pane, x - Globals.BLOCK_SIZE, y - Globals.BLOCK_SIZE, this));
         blockList.add(this);
-        setImage( new Image("square.png"));
+        setImage(new Image("square.png"));
         pane.getChildren().add(this);
 
-    }
-
-
-    public String getMessage() {
-        return null;
     }
 }
