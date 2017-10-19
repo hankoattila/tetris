@@ -14,7 +14,7 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
 
     public void step() {
-        setY(getY() + 4);
+        setY(getY() + Globals.BLOCK_SIZE);
         if (isOutOfBounds()) {
             new BlockDown(pane,getX(),getY());
             destroy();

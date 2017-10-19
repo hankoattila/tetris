@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Globals {
+    public static int speed = 10;
     public static final int BLOCK_SIZE = 31;
     public static final int WINDOW_WIDTH = BLOCK_SIZE*12;
     public static final int WINDOW_HEIGHT = BLOCK_SIZE*20;

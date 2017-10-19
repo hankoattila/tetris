@@ -17,7 +17,7 @@ public class BodyBlock extends Animatable implements Interactable {
     }
 
     public void step() {
-        setY(getY() + speed);
+        setY(getY() + Globals.BLOCK_SIZE);
         if (isOutOfBounds()) {
             destroy();
             new BlockDown(pane,getX(),getY());
