@@ -29,9 +29,9 @@ public enum   Blocks {
             case 1:return new JBlock(pane,x,0);
             case 2:return new LBlock(pane,x,0);
             case 3:return new OBlock(pane,x,0);
-//            case 4:return new SBlock(pane,200,0);
+            case 4:return new SBlock(pane,x,0);
 //            case 5:return new TBlock(pane,200,0);
-            case 4:return new ZBlock(pane,x,0);
+            case 5:return new ZBlock(pane,x,0);
 
         }
         return null;
