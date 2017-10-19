@@ -15,21 +15,24 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
 
     public void step() {
-        if (isOutOfBounds() || Globals.positions.contains(new Point2D(getX(),getY()+Globals.BLOCK_SIZE))) {
-            int blockLength = block.size();
+        setY(getY() + Globals.BLOCK_SIZE);
+    }
+
+    public void apply() {
+        if (blockList.size() != 0) {
+            int blockLength = blockList.size();
             for (int i = 0; i < blockLength; i++) {
-                Globals.positions.add(new Point2D(block.get(0).getX(),block.get(0).getY()));
-                block.get(0).destroy();
-                block.remove(0);
+                Globals.positions.add(new Point2D(blockList.get(0).getX(), blockList.get(0).getY()));
+                blockList.get(0).destroy();
+                blockList.remove(0);
             }
-            for (Point2D point2D: Globals.positions){
-                new BlockDown(pane,point2D.getX(),point2D.getY());
+            for (Point2D point2D : Globals.positions) {
+                new BlockDown(pane, point2D.getX(), point2D.getY());
             }
             Random rnd = new Random();
             Blocks.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
-        } else {
-            setY(getY() + Globals.BLOCK_SIZE);
         }
+
     }
 
 }
