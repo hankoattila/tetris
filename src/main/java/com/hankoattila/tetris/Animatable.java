@@ -1,7 +1,10 @@
 package com.hankoattila.tetris;
 
 
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.util.Random;
@@ -11,10 +14,22 @@ import java.util.Random;
 public abstract class Animatable extends GameEntity implements Interactable {
     protected Animatable(Pane pane) {
         super(pane);
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT);
+
     }
+
+    protected boolean leftKeyDown = false;
+    protected boolean rightKeyDown = false;
 
 
     public void step() {
+        if (leftKeyDown) {
+            setX(getX() - Globals.BLOCK_SIZE);
+        }
+        if (rightKeyDown) {
+            setX(getX() + Globals.BLOCK_SIZE);
+        }
+
         setY(getY() + Globals.BLOCK_SIZE);
     }
 
@@ -35,4 +50,34 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
     }
 
+    protected void initEventHandlers(Pane pane, final KeyCode leftCode, final KeyCode rightCode) {
+        //EventHandler has to be chained to each other due to only one can be set
+        final EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
+        pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent event) {
+                if (oldKeyPressedHandler != null) {
+                    oldKeyPressedHandler.handle(event);
+                }
+                if (leftCode == event.getCode()) {
+                    leftKeyDown = true;
+
+                } else if (rightCode == event.getCode()) {
+                    rightKeyDown = true;
+                }
+            }
+        });
+        EventHandler keyReleasedEventHandler = pane.getScene().getOnKeyReleased();
+        pane.getScene().setOnKeyReleased(event -> {
+            if (keyReleasedEventHandler != null) {
+                keyReleasedEventHandler.handle(event);
+            }
+            if (leftCode == event.getCode()) {
+                leftKeyDown = false;
+
+            } else if (rightCode == event.getCode()) {
+                rightKeyDown = false;
+
+            }
+        });
+    }
 }
