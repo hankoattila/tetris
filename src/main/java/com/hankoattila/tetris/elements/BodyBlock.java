@@ -17,7 +17,6 @@ public class BodyBlock extends Animatable implements Interactable {
         pane.getChildren().add(this);
         setImage(new Image("square.png"));
     }
-
     public void step() {
         setY(getY() + Globals.BLOCK_SIZE);
     }

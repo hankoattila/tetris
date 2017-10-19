@@ -8,15 +8,15 @@ import javafx.scene.layout.Pane;
 
 public class IBlock extends Animatable implements Interactable {
 
-    public IBlock(Pane pane, int xc, int yc) {
+    public IBlock(Pane pane, int x, int y) {
         super(pane);
         this.pane = pane;
-        setX(xc);
-        setY(yc);
+        setX(x);
+        setY(y);
         int length = Globals.BLOCK_SIZE;
         block.add(this);
         for (int i = 0; i < 3; i++) {
-            block.add(new BodyBlock(pane,xc,yc-length));
+            block.add(new BodyBlock(pane,x,y-length));
             length+=Globals.BLOCK_SIZE;
         }
         setImage(new Image("square.png"));
