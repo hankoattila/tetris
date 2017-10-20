@@ -92,7 +92,7 @@ public abstract class GameEntity extends ImageView {
         return outOfRightBound;
     }
 
-    protected boolean isOutOfoutOfBottomBound() {
+    protected boolean isOutOfBottomBound() {
         if (getY() >= Globals.END_OF_WINDOW) {
             return true;
         }

@@ -14,10 +14,11 @@ public class Globals {
     public static final int BLOCK_SIZE = 31;
     public static int WIDTH = 12;
     public static int HEIGHT = 20;
+    public static List<Integer> removeLine = new ArrayList<>();
     public static final int WINDOW_WIDTH = BLOCK_SIZE * WIDTH;
     public static final int WINDOW_HEIGHT = BLOCK_SIZE * HEIGHT;
     public static final int END_OF_WINDOW = WINDOW_HEIGHT - BLOCK_SIZE;
-    public static HashMap<Point2D,String> positions = new HashMap<>();
+    public static HashMap<Point2D, String> positions = new HashMap<>();
     public static List<GameEntity> gameObjects = new ArrayList<GameEntity>(); //Holds game object that should be on display.
     public static List<GameEntity> newGameObjects = new ArrayList<GameEntity>(); // Holds game objects crated in this frame.
     public static List<GameEntity> oldGameObjects = new ArrayList<GameEntity>(); // Holds game objects that will be destroyed this frame.
