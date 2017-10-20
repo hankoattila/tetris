@@ -28,7 +28,28 @@ public abstract class GameEntity extends ImageView {
         Globals.removeGameObject(this);
     }
 
-    protected boolean isOutOfBounds() {
+    protected boolean outOfLeftBound(){
+        boolean outOfLeftBound = false;
+        for (GameEntity gameEntity: blockList){
+            if (gameEntity.getX()-Globals.BLOCK_SIZE <0){
+                outOfLeftBound = true;
+            }
+        }
+        return outOfLeftBound;
+    }
+    protected boolean outOfRightBound(){
+        boolean outOfRightBound = false;
+
+        for (GameEntity gameEntity: blockList){
+            if (gameEntity.getX()+Globals.BLOCK_SIZE >=Globals.WINDOW_WIDTH){
+                outOfRightBound = true;
+            }
+        }
+        System.out.println(outOfRightBound);
+        return outOfRightBound;
+    }
+
+    protected boolean isOutOfoutOfBottomBound() {
         if (getY() >= Globals.END_OF_WINDOW) {
             return true;
         }

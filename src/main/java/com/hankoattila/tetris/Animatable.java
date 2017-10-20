@@ -12,27 +12,27 @@ import java.util.Random;
 // Interface for animated game entities. If a GameEntity implements this, the step() method will be called
 // 60 times per second.
 public abstract class Animatable extends GameEntity implements Interactable {
+    protected boolean leftKeyDown = false;
+    protected boolean rightKeyDown = false;
+
     protected Animatable(Pane pane) {
         super(pane);
         initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT);
 
     }
 
-    protected boolean leftKeyDown = false;
-    protected boolean rightKeyDown = false;
-
     public void step() {
-        if (leftKeyDown){
+        if (leftKeyDown && !outOfLeftBound()) {
             for (GameEntity gameEntity : blockList) {
                 gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
             }
         }
-        if (rightKeyDown){
+        if (rightKeyDown && !outOfRightBound()) {
             for (GameEntity gameEntity : blockList) {
                 gameEntity.setX(gameEntity.getX() + Globals.BLOCK_SIZE);
             }
-        }
 
+        }
         for (GameEntity gameEntity : blockList) {
             gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
         }
