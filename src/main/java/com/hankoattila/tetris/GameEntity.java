@@ -28,26 +28,28 @@ public abstract class GameEntity extends ImageView {
         }
         Globals.removeGameObject(this);
     }
-    protected void move(){
+
+    protected void move() {
         for (GameEntity gameEntity : blockList) {
             gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
         }
     }
 
-    protected boolean isEmptyLeftPosition(){
+    protected boolean isEmptyLeftPosition() {
         boolean isEmpty = true;
-        for (GameEntity gameEntity: blockList){
-            if (Globals.positions.contains(new Point2D(gameEntity.getX()-Globals.BLOCK_SIZE,gameEntity.getY() + Globals.BLOCK_SIZE))){
+        for (GameEntity gameEntity : blockList) {
+            if (Globals.positions.contains(new Point2D(gameEntity.getX() - Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
                 isEmpty = false;
                 break;
             }
         }
         return isEmpty;
     }
-    protected boolean isEmptyRightPosition(){
+
+    protected boolean isEmptyRightPosition() {
         boolean isEmpty = true;
-        for (GameEntity gameEntity: blockList){
-            if (Globals.positions.contains(new Point2D(gameEntity.getX()+Globals.BLOCK_SIZE,gameEntity.getY()+Globals.BLOCK_SIZE))){
+        for (GameEntity gameEntity : blockList) {
+            if (Globals.positions.contains(new Point2D(gameEntity.getX() + Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
                 isEmpty = false;
                 break;
 
@@ -56,10 +58,10 @@ public abstract class GameEntity extends ImageView {
         return isEmpty;
     }
 
-    protected boolean outOfLeftBound(){
+    protected boolean outOfLeftBound() {
         boolean outOfLeftBound = false;
-        for (GameEntity gameEntity: blockList){
-            if (gameEntity.getX()-Globals.BLOCK_SIZE <0){
+        for (GameEntity gameEntity : blockList) {
+            if (gameEntity.getX() - Globals.BLOCK_SIZE < 0) {
                 outOfLeftBound = true;
                 break;
 
@@ -67,11 +69,12 @@ public abstract class GameEntity extends ImageView {
         }
         return outOfLeftBound;
     }
-    protected boolean outOfRightBound(){
+
+    protected boolean outOfRightBound() {
         boolean outOfRightBound = false;
 
-        for (GameEntity gameEntity: blockList){
-            if (gameEntity.getX()+Globals.BLOCK_SIZE >=Globals.WINDOW_WIDTH){
+        for (GameEntity gameEntity : blockList) {
+            if (gameEntity.getX() + Globals.BLOCK_SIZE >= Globals.WINDOW_WIDTH) {
                 outOfRightBound = true;
                 break;
             }
