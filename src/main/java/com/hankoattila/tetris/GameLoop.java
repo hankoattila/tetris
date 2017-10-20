@@ -1,7 +1,6 @@
 package com.hankoattila.tetris;
 
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Point2D;
 
 
 public class GameLoop extends AnimationTimer {
@@ -12,7 +11,7 @@ public class GameLoop extends AnimationTimer {
         if (tetrisStep == Globals.speed) {
             //Call the apply method on every Interactable gameObject, before the step if condition is true
             for (GameEntity gameObject : Globals.gameObjects) {
-                if (gameObject.isOutOfoutOfBottomBound()|| gameObject.isObjectUnder()) {
+                if (gameObject.isOutOfBottomBound() || gameObject.isObjectUnder()) {
                     ((Interactable) gameObject).apply();
                 }
             }

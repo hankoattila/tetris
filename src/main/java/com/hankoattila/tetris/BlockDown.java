@@ -7,12 +7,12 @@ import java.util.Random;
 
 
 public class BlockDown extends GameEntity implements Interactable {
-    public BlockDown(Pane pane, double x, double y) {
+    public BlockDown(Pane pane, double x, double y,String image) {
         super(pane);
         this.pane = pane;
         setX(x);
         setY(y);
-        setImage(new Image("square.png"));
+        setImage(new Image(image));
         pane.getChildren().add(this);
     }
 
