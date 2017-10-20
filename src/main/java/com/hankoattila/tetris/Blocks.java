@@ -21,9 +21,8 @@ public enum   Blocks {
     }
 
     public static GameEntity createNewBlock(int number ,Pane pane){
-        Random rnd = new Random();
-        int z = rnd.nextInt(5);
-        int x = 100 + (z * Globals.BLOCK_SIZE);
+
+        int x = Globals.BLOCK_SIZE * 4;
         switch (number){
             case 0:return new IBlock(pane,x,0);
             case 1:return new JBlock(pane,x,0);

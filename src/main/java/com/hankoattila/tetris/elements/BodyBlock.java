@@ -5,6 +5,7 @@ import com.hankoattila.tetris.GameEntity;
 import com.hankoattila.tetris.Globals;
 import com.hankoattila.tetris.Interactable;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 public class BodyBlock extends Animatable implements Interactable {
@@ -16,14 +17,9 @@ public class BodyBlock extends Animatable implements Interactable {
         this.parent = parent;
         setX(xc);
         setY(yc);
-
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN);
         pane.getChildren().add(this);
         setImage(new Image("square.png"));
-    }
-
-    @Override
-    public void step() {
-        setY(getY() + Globals.BLOCK_SIZE);
     }
 
     @Override

@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Globals {
     public static int speed = 10;
+    public static int speedLimit = 10;
+    public static int speedBoost = 5;
     public static final int BLOCK_SIZE = 31;
     public static int WIDTH = 12;
     public static int HEIGHT = 20;
