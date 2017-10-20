@@ -34,6 +34,16 @@ public abstract class GameEntity extends ImageView {
             gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
         }
     }
+    protected boolean isObjectUnder(){
+        boolean isObjectUnder = false;
+        for (GameEntity gameEntity: blockList){
+            if (Globals.positions.contains(new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE))){
+                isObjectUnder = true;
+                break;
+            }
+        }
+        return  isObjectUnder;
+    }
 
     protected boolean isEmptyLeftPosition() {
         boolean isEmpty = true;
@@ -88,6 +98,8 @@ public abstract class GameEntity extends ImageView {
         }
         return false;
     }
+
+
 
 
 }

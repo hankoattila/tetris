@@ -12,8 +12,7 @@ public class GameLoop extends AnimationTimer {
         if (tetrisStep == Globals.speed) {
             //Call the apply method on every Interactable gameObject, before the step if condition is true
             for (GameEntity gameObject : Globals.gameObjects) {
-                if (gameObject.isOutOfoutOfBottomBound()
-                        || Globals.positions.contains(new Point2D(gameObject.getX(), gameObject.getY() + Globals.BLOCK_SIZE))) {
+                if (gameObject.isOutOfoutOfBottomBound()|| gameObject.isObjectUnder()) {
                     ((Interactable) gameObject).apply();
                 }
             }

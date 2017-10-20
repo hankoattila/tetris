@@ -17,7 +17,7 @@ public class BodyBlock extends Animatable implements Interactable {
         this.parent = parent;
         setX(xc);
         setY(yc);
-        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT);
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN);
         pane.getChildren().add(this);
         setImage(new Image("square.png"));
     }

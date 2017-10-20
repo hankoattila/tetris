@@ -14,14 +14,16 @@ import java.util.Random;
 public abstract class Animatable extends GameEntity implements Interactable {
     protected boolean leftKeyDown = false;
     protected boolean rightKeyDown = false;
+    protected boolean downKeyDown = false;
 
     protected Animatable(Pane pane) {
         super(pane);
-        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT);
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN);
 
     }
 
     public void step() {
+        Globals.speed = Globals.speedLimit;
         if (leftKeyDown && !outOfLeftBound() && isEmptyLeftPosition()) {
             for (GameEntity gameEntity : blockList) {
                 gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
@@ -33,6 +35,9 @@ public abstract class Animatable extends GameEntity implements Interactable {
             }
             move();
 
+        } else if (downKeyDown) {
+            Globals.speed = Globals.speedBoost;
+            move();
         } else {
             move();
         }
@@ -55,7 +60,7 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
     }
 
-    protected void initEventHandlers(Pane pane, final KeyCode leftCode, final KeyCode rightCode) {
+    protected void initEventHandlers(Pane pane, final KeyCode leftCode, final KeyCode rightCode, final KeyCode downCode) {
         //EventHandler has to be chained to each other due to only one can be set
         final EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
         pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -68,6 +73,8 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
                 } else if (rightCode == event.getCode()) {
                     rightKeyDown = true;
+                } else if (downCode == event.getCode()) {
+                    downKeyDown = true;
                 }
             }
         });
@@ -82,6 +89,8 @@ public abstract class Animatable extends GameEntity implements Interactable {
             } else if (rightCode == event.getCode()) {
                 rightKeyDown = false;
 
+            } else if (downCode == event.getCode()) {
+                downKeyDown = false;
             }
         });
     }
