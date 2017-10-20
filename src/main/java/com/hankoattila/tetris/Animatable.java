@@ -15,9 +15,11 @@ public abstract class Animatable extends GameEntity implements Interactable {
     protected boolean leftKeyDown = false;
     protected boolean rightKeyDown = false;
     protected boolean downKeyDown = false;
+    protected String image;
 
-    protected Animatable(Pane pane) {
+    protected Animatable(Pane pane, String image) {
         super(pane);
+        this.image = image;
         initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN);
 
     }
@@ -48,12 +50,11 @@ public abstract class Animatable extends GameEntity implements Interactable {
             int blockLength = blockList.size();
             for (int i = 0; i < blockLength; i++) {
                 Globals.positions.add(new Point2D(blockList.get(0).getX(), blockList.get(0).getY()));
+                new BlockDown(pane, blockList.get(0).getX(), blockList.get(0).getY(),this.image);
                 blockList.get(0).destroy();
                 blockList.remove(0);
             }
-            for (Point2D point2D : Globals.positions) {
-                new BlockDown(pane, point2D.getX(), point2D.getY());
-            }
+
             Random rnd = new Random();
             Blocks.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
         }
