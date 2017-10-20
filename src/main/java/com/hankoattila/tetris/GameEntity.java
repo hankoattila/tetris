@@ -1,5 +1,6 @@
 package com.hankoattila.tetris;
 
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -27,12 +28,41 @@ public abstract class GameEntity extends ImageView {
         }
         Globals.removeGameObject(this);
     }
+    protected void move(){
+        for (GameEntity gameEntity : blockList) {
+            gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+        }
+    }
+
+    protected boolean isEmptyLeftPosition(){
+        boolean isEmpty = true;
+        for (GameEntity gameEntity: blockList){
+            if (Globals.positions.contains(new Point2D(gameEntity.getX()-Globals.BLOCK_SIZE,gameEntity.getY() + Globals.BLOCK_SIZE))){
+                isEmpty = false;
+                break;
+            }
+        }
+        return isEmpty;
+    }
+    protected boolean isEmptyRightPosition(){
+        boolean isEmpty = true;
+        for (GameEntity gameEntity: blockList){
+            if (Globals.positions.contains(new Point2D(gameEntity.getX()+Globals.BLOCK_SIZE,gameEntity.getY()+Globals.BLOCK_SIZE))){
+                isEmpty = false;
+                break;
+
+            }
+        }
+        return isEmpty;
+    }
 
     protected boolean outOfLeftBound(){
         boolean outOfLeftBound = false;
         for (GameEntity gameEntity: blockList){
             if (gameEntity.getX()-Globals.BLOCK_SIZE <0){
                 outOfLeftBound = true;
+                break;
+
             }
         }
         return outOfLeftBound;
@@ -43,9 +73,9 @@ public abstract class GameEntity extends ImageView {
         for (GameEntity gameEntity: blockList){
             if (gameEntity.getX()+Globals.BLOCK_SIZE >=Globals.WINDOW_WIDTH){
                 outOfRightBound = true;
+                break;
             }
         }
-        System.out.println(outOfRightBound);
         return outOfRightBound;
     }
 

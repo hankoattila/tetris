@@ -22,19 +22,19 @@ public abstract class Animatable extends GameEntity implements Interactable {
     }
 
     public void step() {
-        if (leftKeyDown && !outOfLeftBound()) {
+        if (leftKeyDown && !outOfLeftBound() && isEmptyLeftPosition()) {
             for (GameEntity gameEntity : blockList) {
                 gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
             }
-        }
-        if (rightKeyDown && !outOfRightBound()) {
+            move();
+        } else if (rightKeyDown && !outOfRightBound() && isEmptyRightPosition()) {
             for (GameEntity gameEntity : blockList) {
                 gameEntity.setX(gameEntity.getX() + Globals.BLOCK_SIZE);
             }
+            move();
 
-        }
-        for (GameEntity gameEntity : blockList) {
-            gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+        } else {
+            move();
         }
     }
 
