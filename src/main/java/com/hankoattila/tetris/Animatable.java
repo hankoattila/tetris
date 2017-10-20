@@ -21,16 +21,21 @@ public abstract class Animatable extends GameEntity implements Interactable {
     protected boolean leftKeyDown = false;
     protected boolean rightKeyDown = false;
 
-
     public void step() {
-        if (leftKeyDown) {
-            setX(getX() - Globals.BLOCK_SIZE);
+        if (leftKeyDown){
+            for (GameEntity gameEntity : blockList) {
+                gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
+            }
         }
-        if (rightKeyDown) {
-            setX(getX() + Globals.BLOCK_SIZE);
+        if (rightKeyDown){
+            for (GameEntity gameEntity : blockList) {
+                gameEntity.setX(gameEntity.getX() + Globals.BLOCK_SIZE);
+            }
         }
 
-        setY(getY() + Globals.BLOCK_SIZE);
+        for (GameEntity gameEntity : blockList) {
+            gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+        }
     }
 
     public void apply() {

@@ -23,17 +23,6 @@ public class BodyBlock extends Animatable implements Interactable {
     }
 
     @Override
-    public void step() {
-        if (leftKeyDown) {
-            setX(getX() - Globals.BLOCK_SIZE);
-        }
-        if (rightKeyDown) {
-            setX(getX() + Globals.BLOCK_SIZE);
-        }
-        setY(getY() + Globals.BLOCK_SIZE);
-    }
-
-    @Override
     public void apply() {
         ((Interactable) parent).apply();
     }

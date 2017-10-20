@@ -8,6 +8,11 @@ import java.util.List;
 
 public abstract class GameEntity extends ImageView {
     protected Pane pane;
+
+    public List<GameEntity> getBlockList() {
+        return blockList;
+    }
+
     protected List<GameEntity> blockList = new ArrayList<GameEntity>();
 
     protected GameEntity(Pane pane) {
@@ -24,8 +29,7 @@ public abstract class GameEntity extends ImageView {
     }
 
     protected boolean isOutOfBounds() {
-        if (getX() > 500|| getX() < 10 ||
-                getY() >= Globals.END_OF_WINDOW) {
+        if (getY() >= Globals.END_OF_WINDOW) {
             return true;
         }
         return false;
