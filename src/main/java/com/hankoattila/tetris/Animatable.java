@@ -6,7 +6,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-
 import java.util.Random;
 
 // Interface for animated game entities. If a GameEntity implements this, the step() method will be called
@@ -49,10 +48,28 @@ public abstract class Animatable extends GameEntity implements Interactable {
         if (blockList.size() != 0) {
             int blockLength = blockList.size();
             for (int i = 0; i < blockLength; i++) {
-                Globals.positions.add(new Point2D(blockList.get(0).getX(), blockList.get(0).getY()));
-                new BlockDown(pane, blockList.get(0).getX(), blockList.get(0).getY(),this.image);
+                Globals.positions.put(new Point2D(blockList.get(0).getX(), blockList.get(0).getY()), image);
+                new BlockDown(pane, blockList.get(0).getX(), blockList.get(0).getY(), this.image);
                 blockList.get(0).destroy();
                 blockList.remove(0);
+            }
+
+            int y = Globals.END_OF_WINDOW;
+            for (int i = y; i > 0; i -= Globals.BLOCK_SIZE) {
+                int counter = 0;
+                for (int x = 0; x < Globals.WINDOW_WIDTH; x += Globals.BLOCK_SIZE) {
+                    if (Globals.positions.containsKey(new Point2D(x, i))) {
+                        counter++;
+                    }
+                }
+                if (counter == Globals.WIDTH) {
+                    System.out.println(i);
+                    for (int x = 0; x < Globals.WINDOW_WIDTH; x += Globals.BLOCK_SIZE) {
+                        new BlockDown(pane,x,i,"bcg.jpg");
+                        Globals.positions.remove(new Point2D(x, i));
+                    }
+
+                }
             }
 
             Random rnd = new Random();

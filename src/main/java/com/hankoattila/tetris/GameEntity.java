@@ -37,7 +37,7 @@ public abstract class GameEntity extends ImageView {
     protected boolean isObjectUnder(){
         boolean isObjectUnder = false;
         for (GameEntity gameEntity: blockList){
-            if (Globals.positions.contains(new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE))){
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE))){
                 isObjectUnder = true;
                 break;
             }
@@ -48,7 +48,7 @@ public abstract class GameEntity extends ImageView {
     protected boolean isEmptyLeftPosition() {
         boolean isEmpty = true;
         for (GameEntity gameEntity : blockList) {
-            if (Globals.positions.contains(new Point2D(gameEntity.getX() - Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() - Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
                 isEmpty = false;
                 break;
             }
@@ -59,7 +59,7 @@ public abstract class GameEntity extends ImageView {
     protected boolean isEmptyRightPosition() {
         boolean isEmpty = true;
         for (GameEntity gameEntity : blockList) {
-            if (Globals.positions.contains(new Point2D(gameEntity.getX() + Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() + Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
                 isEmpty = false;
                 break;
 
