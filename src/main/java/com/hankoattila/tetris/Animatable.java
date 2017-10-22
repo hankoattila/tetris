@@ -16,18 +16,25 @@ public abstract class Animatable extends GameEntity implements Interactable {
     protected boolean leftKeyDown = false;
     protected boolean rightKeyDown = false;
     protected boolean downKeyDown = false;
+    protected boolean switchKey = false;
     protected String image;
 
     protected Animatable(Pane pane, String image) {
         super(pane);
         this.image = image;
-        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN);
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN, KeyCode.UP);
 
     }
 
     public void step() {
         Globals.speed = Globals.speedLimit;
-        if (leftKeyDown) {
+        if (switchKey) {
+            if (blockList.size() >0) {
+                switchPositions();
+                move();
+            }
+
+        } else if (leftKeyDown) {
             if (!outOfLeftBound() && isEmptyLeftPosition()) {
                 for (GameEntity gameEntity : blockList) {
                     gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
@@ -50,6 +57,8 @@ public abstract class Animatable extends GameEntity implements Interactable {
             move();
         }
     }
+
+    protected abstract void switchPositions();
 
     public void apply() {
         if (blockList.size() != 0) {
@@ -113,7 +122,7 @@ public abstract class Animatable extends GameEntity implements Interactable {
     }
 
     protected void initEventHandlers(Pane pane, final KeyCode leftCode, final KeyCode rightCode,
-                                     final KeyCode downCode) {
+                                     final KeyCode downCode, final KeyCode switchCode) {
         //EventHandler has to be chained to each other due to only one can be set
         final EventHandler oldKeyPressedHandler = pane.getScene().getOnKeyPressed();
         pane.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -128,6 +137,8 @@ public abstract class Animatable extends GameEntity implements Interactable {
                     rightKeyDown = true;
                 } else if (downCode == event.getCode()) {
                     downKeyDown = true;
+                } else if (switchCode == event.getCode()) {
+                    switchKey = true;
                 }
             }
         });
@@ -144,6 +155,8 @@ public abstract class Animatable extends GameEntity implements Interactable {
 
             } else if (downCode == event.getCode()) {
                 downKeyDown = false;
+            } else if (switchCode == event.getCode()) {
+                switchKey = false;
             }
         });
     }
