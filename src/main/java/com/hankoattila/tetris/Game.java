@@ -9,9 +9,9 @@ public class Game extends Pane {
     public void start() {
         Random rnd = new Random();
         createBlockList();
-        for (int i = 0; i < Globals.WINDOW_WIDTH; i+=Globals.BLOCK_SIZE) {
-            for (int j = 0; j < Globals.WINDOW_HEIGHT; j+=Globals.BLOCK_SIZE) {
-                new BlockDown(this,i,j,"bcg.jpg");
+        for (int i = 0; i < Globals.WINDOW_WIDTH; i += Globals.BLOCK_SIZE) {
+            for (int j = 0; j < Globals.WINDOW_HEIGHT; j += Globals.BLOCK_SIZE) {
+                new BlockDown(this, i, j, "bcg.jpg");
             }
 
         }

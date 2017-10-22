@@ -17,9 +17,14 @@ public class BodyBlock extends Animatable implements Interactable {
         this.parent = parent;
         setX(xc);
         setY(yc);
-        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN);
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN,KeyCode.UP);
         pane.getChildren().add(this);
         setImage(new Image(image));
+    }
+
+    @Override
+    protected void switchPositions() {
+
     }
 
     @Override

@@ -23,4 +23,8 @@ public class OBlock extends Animatable implements Interactable {
 
     }
 
+    @Override
+    protected void switchPositions() {
+
+    }
 }
