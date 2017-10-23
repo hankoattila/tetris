@@ -1,9 +1,11 @@
-package com.hankoattila.tetris;
+package com.hankoattila.tetris.entities;
 
-import com.hankoattila.tetris.elements.*;
+import com.hankoattila.tetris.Globals;
+import com.hankoattila.tetris.entities.GameEntity;
+import com.hankoattila.tetris.entities.elements.*;
 import javafx.scene.layout.Pane;
 
-public enum Blocks {
+public enum BlockTypes {
     IBLOCK("iblock"),
     JBLOCK("jblock"),
     LBLOCK("lblock"),
@@ -14,7 +16,7 @@ public enum Blocks {
 
     private String blockString;
 
-    Blocks(String blockString) {
+    BlockTypes(String blockString) {
         this.blockString = blockString;
     }
 
