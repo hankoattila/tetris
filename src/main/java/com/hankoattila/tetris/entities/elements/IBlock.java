@@ -1,12 +1,12 @@
-package com.hankoattila.tetris.elements;
+package com.hankoattila.tetris.entities.elements;
 
 import com.hankoattila.tetris.*;
-import javafx.geometry.Point2D;
+import com.hankoattila.tetris.entities.Block;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 
-public class IBlock extends Animatable implements Interactable {
+public class IBlock extends Block {
 
     public IBlock(Pane pane, int x, int y, String image) {
         super(pane, image);
