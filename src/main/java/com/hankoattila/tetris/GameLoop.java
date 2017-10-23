@@ -14,26 +14,23 @@ public class GameLoop extends AnimationTimer {
     public void handle(long now) {
         tetrisSpeed++;
         rotation++;
-        
-        for (GameEntity gameObject : Globals.gameObjects) {
-            if (gameObject.isOutOfBottomBound() || gameObject.isObjectUnder()) {
-                ((Interactable) gameObject).apply();
-            }
-        }
-        if (rotation == 40){
+
+        if (rotation >= 30) {
 
             for (GameEntity gameObject : Globals.gameObjects) {
-                if (gameObject instanceof Animatable) {
-                    Animatable animObject = (Animatable) gameObject;
-                    if (gameObject instanceof Block) {
-                        ((Block) gameObject).changePosition();
-                    }
+                if (gameObject instanceof Block) {
+                    ((Block) gameObject).changePosition();
                 }
             }
             rotation = 0;
         }
+        if (tetrisSpeed >= Globals.speed) {
 
-        if (tetrisSpeed == Globals.speed) {
+            for (GameEntity gameObject : Globals.gameObjects) {
+                if (gameObject.isOutOfBottomBound() || gameObject.isObjectUnder()) {
+                    ((Interactable) gameObject).apply();
+                }
+            }
 
             for (GameEntity gameObject : Globals.gameObjects) {
                 if (gameObject instanceof Animatable) {
@@ -42,9 +39,9 @@ public class GameLoop extends AnimationTimer {
                         ((Block) gameObject).changePosition();
                     }
                     animObject.step();
+
                 }
             }
-
             tetrisSpeed = 0;
         }
         Globals.gameObjects.addAll(Globals.newGameObjects);

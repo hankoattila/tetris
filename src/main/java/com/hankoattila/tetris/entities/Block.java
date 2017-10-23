@@ -29,30 +29,37 @@ public class Block extends GameEntity implements Interactable, Animatable {
         Globals.speed = Globals.speedLimit;
         if (switchKey) {
             if (blockList.size() > 0) {
-                switchPositions();
+                if (isEmptyLeftPosition() && !outOfLeftBound() && !outOfRightBound() && !isOutOfBottomBound()) {
+                    switchPositions();
+                }
             }
-        } else if (leftKeyDown) {
+        }
+        if (leftKeyDown) {
             if (!outOfLeftBound() && isEmptyLeftPosition()) {
                 for (GameEntity gameEntity : blockList) {
                     gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
                 }
             }
-        } else if (rightKeyDown) {
+        }
+        if (rightKeyDown) {
             if (!outOfRightBound() && isEmptyRightPosition()) {
 
                 for (GameEntity gameEntity : blockList) {
                     gameEntity.setX(gameEntity.getX() + Globals.BLOCK_SIZE);
                 }
             }
-        } else if (downKeyDown) {
+        }
+        if (downKeyDown) {
             Globals.speed = Globals.speedBoost;
         }
 
     }
 
     public void step() {
-        for (GameEntity gameEntity : blockList) {
-            gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+        if (blockList.size() != 0){
+            for (GameEntity gameEntity : blockList) {
+                gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+            }
         }
     }
 
