@@ -1,13 +1,11 @@
-package com.hankoattila.tetris;
+package com.hankoattila.tetris.entities;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-import java.util.Random;
 
-
-public class BlockDown extends GameEntity implements Interactable {
-    public BlockDown(Pane pane, double x, double y,String image) {
+public class TableBlock extends GameEntity implements Interactable {
+    public TableBlock(Pane pane, double x, double y, String image) {
         super(pane);
         this.pane = pane;
         setX(x);
@@ -19,7 +17,4 @@ public class BlockDown extends GameEntity implements Interactable {
     public void apply() {
     }
 
-    public String getMessage() {
-        return null;
-    }
 }
