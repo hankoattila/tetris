@@ -1,5 +1,6 @@
-package com.hankoattila.tetris;
+package com.hankoattila.tetris.entities;
 
+import com.hankoattila.tetris.Globals;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -10,9 +11,6 @@ import java.util.List;
 public abstract class GameEntity extends ImageView {
     protected Pane pane;
 
-    public List<GameEntity> getBlockList() {
-        return blockList;
-    }
 
     protected List<GameEntity> blockList = new ArrayList<GameEntity>();
 
@@ -29,20 +27,16 @@ public abstract class GameEntity extends ImageView {
         Globals.removeGameObject(this);
     }
 
-    protected void move() {
-        for (GameEntity gameEntity : blockList) {
-            gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
-        }
-    }
-    protected boolean isObjectUnder(){
+
+    public boolean isObjectUnder() {
         boolean isObjectUnder = false;
-        for (GameEntity gameEntity: blockList){
-            if (Globals.positions.containsKey(new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE))){
+        for (GameEntity gameEntity : blockList) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE))) {
                 isObjectUnder = true;
                 break;
             }
         }
-        return  isObjectUnder;
+        return isObjectUnder;
     }
 
     protected boolean isEmptyLeftPosition() {
@@ -92,14 +86,12 @@ public abstract class GameEntity extends ImageView {
         return outOfRightBound;
     }
 
-    protected boolean isOutOfBottomBound() {
+    public boolean isOutOfBottomBound() {
         if (getY() >= Globals.END_OF_WINDOW) {
             return true;
         }
         return false;
     }
-
-
 
 
 }
