@@ -1,14 +1,13 @@
-package com.hankoattila.tetris.elements;
+package com.hankoattila.tetris.entities.elements;
 
-import com.hankoattila.tetris.Animatable;
-import com.hankoattila.tetris.GameEntity;
-import com.hankoattila.tetris.Globals;
-import com.hankoattila.tetris.Interactable;
+import com.hankoattila.tetris.entities.Block;
+import com.hankoattila.tetris.entities.GameEntity;
+import com.hankoattila.tetris.entities.Interactable;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-public class BodyBlock extends Animatable implements Interactable {
+public class BodyBlock extends Block {
     GameEntity parent;
 
     protected BodyBlock(Pane pane, double xc, double yc,String image, GameEntity parent) {
