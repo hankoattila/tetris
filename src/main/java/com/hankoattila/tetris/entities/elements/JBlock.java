@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 
-public class JBlock extends Block{
+public class JBlock extends Block {
 
     public JBlock(Pane pane, int x, int y, String image) {
         super(pane, image);

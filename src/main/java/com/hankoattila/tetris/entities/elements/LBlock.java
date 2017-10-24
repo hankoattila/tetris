@@ -15,10 +15,8 @@ public class LBlock extends Block {
         blockList.add(new BodyBlock(pane, x, y - Globals.BLOCK_SIZE, image, this));
         blockList.add(new BodyBlock(pane, x, y + Globals.BLOCK_SIZE, image, this));
         blockList.add(new BodyBlock(pane, x + Globals.BLOCK_SIZE, y + Globals.BLOCK_SIZE, image, this));
-        setImage(new Image(this.image));
+        setImage(new Image("square_pink.png"));
         pane.getChildren().add(this);
 
     }
-
-
 }
