@@ -32,6 +32,7 @@ public class Block extends GameEntity implements Interactable, Animatable {
                 if (isEmptyLeftPosition() && !outOfLeftBound() && !outOfRightBound() && !isOutOfBottomBound()) {
                     switchPositions();
                 }
+                switchKey = false;
             }
         }
         if (leftKeyDown) {
@@ -184,13 +185,12 @@ public class Block extends GameEntity implements Interactable, Animatable {
             if (leftCode == event.getCode()) {
                 leftKeyDown = false;
 
-            } else if (rightCode == event.getCode()) {
+            }
+            if (rightCode == event.getCode()) {
                 rightKeyDown = false;
 
             } else if (downCode == event.getCode()) {
                 downKeyDown = false;
-            } else if (switchCode == event.getCode()) {
-                switchKey = false;
             }
         });
     }
