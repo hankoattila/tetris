@@ -27,7 +27,7 @@ public class GameLoop extends AnimationTimer {
         if (tetrisSpeed >= Globals.speed) {
 
             for (GameEntity gameObject : Globals.gameObjects) {
-                if (gameObject.isOutOfBottomBound() || gameObject.isObjectUnder()) {
+                if (gameObject.isOutOfBottomBound() || !gameObject.isEmptyDownPosition()) {
                     ((Interactable) gameObject).apply();
                 }
             }
