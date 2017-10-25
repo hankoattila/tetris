@@ -20,7 +20,7 @@ public class IBlock extends Block {
         blockList.add(new BodyBlock(pane, x, y - Globals.BLOCK_SIZE*2, image, this));
 
 
-        setImage(new Image("square_pink.png"));
+        setImage(new Image(this.image));
         pane.getChildren().add(this);
     }
 
