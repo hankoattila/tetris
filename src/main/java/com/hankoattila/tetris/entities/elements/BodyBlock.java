@@ -22,7 +22,7 @@ public class BodyBlock extends Block {
     }
 
     @Override
-    protected void switchPositions() {
+    protected void rotateBlock() {
 
     }
 
