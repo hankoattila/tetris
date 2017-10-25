@@ -3,11 +3,14 @@ package com.hankoattila.tetris.entities;
 import com.hankoattila.tetris.Globals;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Block extends GameEntity implements Interactable, Animatable {
@@ -16,6 +19,7 @@ public class Block extends GameEntity implements Interactable, Animatable {
     private boolean downKeyDown = false;
     private boolean switchKey = false;
     protected String image;
+    protected List<GameEntity> blockList = new ArrayList<GameEntity>();
 
 
     protected Block(Pane pane, String image) {
@@ -25,25 +29,54 @@ public class Block extends GameEntity implements Interactable, Animatable {
 
     }
 
+    public void step() {
+        if (blockList.size() != 0) {
+            for (GameEntity gameEntity : blockList) {
+                gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+            }
+        }
+    }
+
+    public void apply() {
+
+        if (blockList.size() != 0) {
+            Globals.removeLine.clear();
+            int blockLength = blockList.size();
+            for (int i = 0; i < blockLength; i++) {
+                int x = (int) blockList.get(0).getX();
+                int y = (int) blockList.get(0).getY();
+                Globals.positions.put(new Point2D(x, y), image);
+                new TableBlock(pane, x, y, this.image);
+                blockList.get(0).setImage(null);
+                blockList.get(0).destroy();
+                blockList.remove(0);
+            }
+            FullLineChecking();
+            if (Globals.removeLine.size() > 0) {
+                setBlockNewPosition();
+            }
+            Random rnd = new Random();
+            BlockTypes.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
+        }
+    }
+
     public void changePosition() {
         Globals.speed = Globals.speedLimit;
         if (switchKey) {
             if (blockList.size() > 0) {
-                if (isEmptyLeftPosition() && !outOfLeftBound() && !outOfRightBound() && !isOutOfBottomBound()) {
-                    switchPositions();
-                }
-                switchKey = false;
+                rotateBlock();
             }
+            switchKey = false;
         }
         if (leftKeyDown) {
-            if (!outOfLeftBound() && isEmptyLeftPosition()) {
+            if (!outOfLeftBound() && isEmptyLeftPosition() && !isOutOfBottomBound() && isEmptyDownPosition()) {
                 for (GameEntity gameEntity : blockList) {
                     gameEntity.setX(gameEntity.getX() - Globals.BLOCK_SIZE);
                 }
             }
         }
         if (rightKeyDown) {
-            if (!outOfRightBound() && isEmptyRightPosition()) {
+            if (!outOfRightBound() && isEmptyRightPosition() && !isOutOfBottomBound() && isEmptyDownPosition()) {
 
                 for (GameEntity gameEntity : blockList) {
                     gameEntity.setX(gameEntity.getX() + Globals.BLOCK_SIZE);
@@ -54,63 +87,6 @@ public class Block extends GameEntity implements Interactable, Animatable {
             Globals.speed = Globals.speedBoost;
         }
 
-    }
-
-    public void step() {
-        if (blockList.size() != 0){
-            for (GameEntity gameEntity : blockList) {
-                gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
-            }
-        }
-    }
-
-    public void apply() {
-        if (blockList.size() != 0) {
-            Globals.removeLine.clear();
-            int blockLength = blockList.size();
-            for (int i = 0; i < blockLength; i++) {
-                int x = (int) blockList.get(0).getX();
-                int y = (int) blockList.get(0).getY();
-                Globals.positions.put(new Point2D(x, y), image);
-                new TableBlock(pane, x, y, this.image);
-                blockList.get(0).destroy();
-                blockList.remove(0);
-            }
-            FullLineChecking();
-            if (Globals.removeLine.size() > 0) {
-
-                setBlockNewPosition();
-            }
-            Random rnd = new Random();
-            BlockTypes.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
-        }
-    }
-
-    protected void switchPositions() {
-        int Px = (int) blockList.get(0).getX();
-        int Py = (int) blockList.get(0).getY();
-
-        for (GameEntity block : blockList) {
-
-            int Vx = (int) block.getX();
-            int Vy = (int) block.getY();
-
-            int Vrx = Vx - Px;
-            int Vry = Vy - Py;
-
-            int Rx1 = 0;
-            int Ry1 = 1;
-            int Rx2 = -1;
-            int Ry2 = 0;
-
-
-            int Vtx = Rx1 * Vrx + Rx2 * Vry;
-            int Vty = Ry1 * Vrx + Ry2 * Vry;
-            int V1 = Px + Vtx;
-            int V2 = Py + Vty;
-            block.setX(V1);
-            block.setY(V2);
-        }
     }
 
     private void FullLineChecking() {
@@ -151,6 +127,118 @@ public class Block extends GameEntity implements Interactable, Animatable {
         }
 
     }
+
+
+    public Point2D rotate(Point2D center, Point2D objectPosition) {
+        int Px = (int) center.getX();
+        int Py = (int) center.getY();
+        int Vx = (int) objectPosition.getX();
+        int Vy = (int) objectPosition.getY();
+
+        int Vrx = Vx - Px;
+        int Vry = Vy - Py;
+
+        int Rx1 = 0;
+        int Ry1 = 1;
+        int Rx2 = -1;
+        int Ry2 = 0;
+
+
+        int Vtx = Rx1 * Vrx + Rx2 * Vry;
+        int Vty = Ry1 * Vrx + Ry2 * Vry;
+        int V1 = Px + Vtx;
+        int V2 = Py + Vty;
+        return new Point2D(V1, V2);
+    }
+
+    protected void rotateBlock() {
+        int Px = (int) blockList.get(0).getX();
+        int Py = (int) blockList.get(0).getY();
+        Point2D center = new Point2D(Px, Py);
+        if (isRotateOutOfLeftBound() && isEmptyRightPosition()) {
+            for (GameEntity block : blockList) {
+                Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+                block.setX(newPosition.getX() + Globals.BLOCK_SIZE);
+                block.setY(newPosition.getY());
+            }
+        } else if (isRotateOutOfRightBound() && isEmptyLeftPosition()) {
+            for (GameEntity block : blockList) {
+                Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+                block.setX(newPosition.getX() - Globals.BLOCK_SIZE);
+                block.setY(newPosition.getY());
+            }
+        } else if (isEmptyRightPosition() && isEmptyLeftPosition() &&
+                isEmptyDownPosition() && !isRotateInOtherObject() &&
+                !isRotateOutOfBottomBound()) {
+
+            for (GameEntity block : blockList) {
+                Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+                block.setX(newPosition.getX());
+                block.setY(newPosition.getY());
+            }
+        }
+
+    }
+
+    protected boolean isRotateOutOfBottomBound() {
+        int Px = (int) blockList.get(0).getX();
+        int Py = (int) blockList.get(0).getY();
+        Point2D center = new Point2D(Px, Py);
+        boolean rotateOutOfBottomBound = false;
+        for (GameEntity block : blockList) {
+            Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+            if (newPosition.getY() >= Globals.END_OF_WINDOW) {
+                rotateOutOfBottomBound = true;
+            }
+        }
+        return rotateOutOfBottomBound;
+
+    }
+
+    protected boolean isRotateInOtherObject() {
+        int Px = (int) blockList.get(0).getX();
+        int Py = (int) blockList.get(0).getY();
+        Point2D center = new Point2D(Px, Py);
+        boolean rotateInOtherObject = false;
+        for (GameEntity block : blockList) {
+            Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+            if (Globals.positions.containsKey(newPosition)) {
+                rotateInOtherObject = true;
+            }
+        }
+        return rotateInOtherObject;
+
+    }
+
+    protected boolean isRotateOutOfRightBound() {
+        int Px = (int) blockList.get(0).getX();
+        int Py = (int) blockList.get(0).getY();
+        Point2D center = new Point2D(Px, Py);
+        boolean outOfLeftBound = false;
+        for (GameEntity block : blockList) {
+            Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+            if (newPosition.getX() >= Globals.WINDOW_WIDTH) {
+                outOfLeftBound = true;
+            }
+        }
+        return outOfLeftBound;
+
+    }
+
+    protected boolean isRotateOutOfLeftBound() {
+        int Px = (int) blockList.get(0).getX();
+        int Py = (int) blockList.get(0).getY();
+        Point2D center = new Point2D(Px, Py);
+        boolean outOfLeftBound = false;
+        for (GameEntity block : blockList) {
+            Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
+            if (newPosition.getX() < 0) {
+                outOfLeftBound = true;
+            }
+        }
+        return outOfLeftBound;
+    }
+
 
     protected void initEventHandlers(Pane pane,
                                      final KeyCode leftCode,
@@ -193,5 +281,68 @@ public class Block extends GameEntity implements Interactable, Animatable {
                 downKeyDown = false;
             }
         });
+    }
+
+    @Override
+    public boolean isEmptyDownPosition() {
+        boolean isObjectUnder = true;
+        for (GameEntity gameEntity : blockList) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE))) {
+                isObjectUnder = false;
+                break;
+            }
+        }
+        return isObjectUnder;
+    }
+
+    @Override
+    protected boolean isEmptyLeftPosition() {
+        boolean isEmpty = true;
+        for (GameEntity gameEntity : blockList) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() - Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
+                isEmpty = false;
+                break;
+            }
+        }
+        return isEmpty;
+    }
+
+    @Override
+    protected boolean isEmptyRightPosition() {
+        boolean isEmpty = true;
+        for (GameEntity gameEntity : blockList) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() + Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
+                isEmpty = false;
+                break;
+
+            }
+        }
+        return isEmpty;
+    }
+
+    @Override
+    protected boolean outOfLeftBound() {
+        boolean outOfLeftBound = false;
+        for (GameEntity gameEntity : blockList) {
+            if (gameEntity.getX() - Globals.BLOCK_SIZE < 0) {
+                outOfLeftBound = true;
+                break;
+
+            }
+        }
+        return outOfLeftBound;
+    }
+
+    @Override
+    protected boolean outOfRightBound() {
+        boolean outOfRightBound = false;
+
+        for (GameEntity gameEntity : blockList) {
+            if (gameEntity.getX() + Globals.BLOCK_SIZE >= Globals.WINDOW_WIDTH) {
+                outOfRightBound = true;
+                break;
+            }
+        }
+        return outOfRightBound;
     }
 }
