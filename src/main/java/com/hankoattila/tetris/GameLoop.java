@@ -3,8 +3,9 @@ package com.hankoattila.tetris;
 import com.hankoattila.tetris.entities.Animatable;
 import com.hankoattila.tetris.entities.Block;
 import com.hankoattila.tetris.entities.GameEntity;
-import com.hankoattila.tetris.entities.Interactable;
+import com.hankoattila.tetris.entities.TableBlock;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Point2D;
 
 
 public class GameLoop extends AnimationTimer {
@@ -15,8 +16,7 @@ public class GameLoop extends AnimationTimer {
         tetrisSpeed++;
         rotation++;
 
-        if (rotation >= 30) {
-
+        if (rotation >= 10) {
             for (GameEntity gameObject : Globals.gameObjects) {
                 if (gameObject instanceof Block) {
                     ((Block) gameObject).changePosition();
@@ -25,19 +25,9 @@ public class GameLoop extends AnimationTimer {
             rotation = 0;
         }
         if (tetrisSpeed >= Globals.speed) {
-
-            for (GameEntity gameObject : Globals.gameObjects) {
-                if (gameObject.isOutOfBottomBound() || !gameObject.isEmptyDownPosition()) {
-                    ((Interactable) gameObject).apply();
-                }
-            }
-
             for (GameEntity gameObject : Globals.gameObjects) {
                 if (gameObject instanceof Animatable) {
                     Animatable animObject = (Animatable) gameObject;
-                    if (gameObject instanceof Block) {
-                        ((Block) gameObject).changePosition();
-                    }
                     animObject.step();
 
                 }

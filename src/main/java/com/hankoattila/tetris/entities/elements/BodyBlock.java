@@ -10,13 +10,13 @@ import javafx.scene.layout.Pane;
 public class BodyBlock extends Block {
     GameEntity parent;
 
-    protected BodyBlock(Pane pane, double xc, double yc,String image, GameEntity parent) {
-        super(pane,image);
+    public BodyBlock(Pane pane, double xc, double yc, String image, GameEntity parent) {
+        super(pane, image);
         this.pane = pane;
         this.parent = parent;
         setX(xc);
         setY(yc);
-        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN,KeyCode.UP);
+        initEventHandlers(pane, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.DOWN, KeyCode.UP);
         pane.getChildren().add(this);
         setImage(new Image(image));
     }

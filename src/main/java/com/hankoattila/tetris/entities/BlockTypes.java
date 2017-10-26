@@ -23,21 +23,22 @@ public enum BlockTypes {
     public static GameEntity createNewBlock(int number, Pane pane) {
 
         int x = Globals.BLOCK_SIZE * 2;
+        int y = 0;
         switch (number) {
             case 0:
-                return new IBlock(pane, x, 0, "square_blue.png");
+                return new IBlock(pane, x, y, "square_blue.png");
             case 1:
-                return new JBlock(pane, x, 0, "square_green.png");
+                return new JBlock(pane, x, y, "square_green.png");
             case 2:
-                return new LBlock(pane, x, 0, "square_orange.png");
+                return new LBlock(pane, x, y, "square_orange.png");
             case 3:
-                return new OBlock(pane, x, 0, "square_pink.png");
+                return new OBlock(pane, x, y, "square_pink.png");
             case 4:
-                return new SBlock(pane, x, 0, "square_purple.png");
+                return new SBlock(pane, x, y, "square_purple.png");
             case 5:
-                return new TBlock(pane, x, 0, "square_red.png");
+                return new TBlock(pane, x, y, "square_red.png");
             case 6:
-                return new ZBlock(pane, x, 0, "square_yellow.png");
+                return new ZBlock(pane, x, y, "square_yellow.png");
 
         }
         return null;
