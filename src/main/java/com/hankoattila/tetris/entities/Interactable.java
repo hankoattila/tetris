@@ -1,4 +1,4 @@
-package com.hankoattila.tetris;
+package com.hankoattila.tetris.entities;
 
 public interface Interactable {
 
