@@ -3,10 +3,9 @@ package com.hankoattila.tetris.entities;
 import com.hankoattila.tetris.Globals;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,8 +30,19 @@ public class Block extends GameEntity implements Interactable, Animatable {
 
     public void step() {
         if (blockList.size() != 0) {
+            boolean shouldSave = false;
             for (GameEntity gameEntity : blockList) {
-                gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+                Point2D point2D = new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE);
+                if (Globals.positions.containsKey(point2D) || gameEntity.getY() + Globals.BLOCK_SIZE > Globals.END_OF_WINDOW) {
+                    shouldSave = true;
+                }
+            }
+            if (shouldSave) {
+                apply();
+            } else {
+                for (GameEntity gameEntity : blockList) {
+                    gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
+                }
             }
         }
     }
@@ -42,12 +52,12 @@ public class Block extends GameEntity implements Interactable, Animatable {
         if (blockList.size() != 0) {
             Globals.removeLine.clear();
             int blockLength = blockList.size();
+
             for (int i = 0; i < blockLength; i++) {
                 int x = (int) blockList.get(0).getX();
                 int y = (int) blockList.get(0).getY();
                 Globals.positions.put(new Point2D(x, y), image);
                 new TableBlock(pane, x, y, this.image);
-                blockList.get(0).setImage(null);
                 blockList.get(0).destroy();
                 blockList.remove(0);
             }
@@ -155,13 +165,15 @@ public class Block extends GameEntity implements Interactable, Animatable {
         int Px = (int) blockList.get(0).getX();
         int Py = (int) blockList.get(0).getY();
         Point2D center = new Point2D(Px, Py);
-        if (isRotateOutOfLeftBound() && isEmptyRightPosition()) {
+        if (isRotateOutOfLeftBound() && isEmptyRightPosition() && !isRotateInOtherObject() && !isRotateOutOfBottomBound()
+                && isEmptyDownPosition()) {
             for (GameEntity block : blockList) {
                 Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
                 block.setX(newPosition.getX() + Globals.BLOCK_SIZE);
                 block.setY(newPosition.getY());
             }
-        } else if (isRotateOutOfRightBound() && isEmptyLeftPosition()) {
+        } else if (isRotateOutOfRightBound() && isEmptyLeftPosition() && !isRotateInOtherObject() && !isRotateOutOfBottomBound()
+                && isEmptyDownPosition()) {
             for (GameEntity block : blockList) {
                 Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
                 block.setX(newPosition.getX() - Globals.BLOCK_SIZE);
@@ -169,7 +181,7 @@ public class Block extends GameEntity implements Interactable, Animatable {
             }
         } else if (isEmptyRightPosition() && isEmptyLeftPosition() &&
                 isEmptyDownPosition() && !isRotateInOtherObject() &&
-                !isRotateOutOfBottomBound()) {
+                !isRotateOutOfBottomBound() && isEmptyDownPosition()) {
 
             for (GameEntity block : blockList) {
                 Point2D newPosition = rotate(center, new Point2D(block.getX(), block.getY()));
@@ -299,7 +311,7 @@ public class Block extends GameEntity implements Interactable, Animatable {
     protected boolean isEmptyLeftPosition() {
         boolean isEmpty = true;
         for (GameEntity gameEntity : blockList) {
-            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() - Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() - Globals.BLOCK_SIZE, gameEntity.getY()))) {
                 isEmpty = false;
                 break;
             }
@@ -311,7 +323,7 @@ public class Block extends GameEntity implements Interactable, Animatable {
     protected boolean isEmptyRightPosition() {
         boolean isEmpty = true;
         for (GameEntity gameEntity : blockList) {
-            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() + Globals.BLOCK_SIZE, gameEntity.getY() + Globals.BLOCK_SIZE))) {
+            if (Globals.positions.containsKey(new Point2D(gameEntity.getX() + Globals.BLOCK_SIZE, gameEntity.getY()))) {
                 isEmpty = false;
                 break;
 
