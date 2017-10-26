@@ -1,8 +1,10 @@
 package com.hankoattila.tetris.entities;
 
 import com.hankoattila.tetris.Globals;
+import com.hankoattila.tetris.entities.elements.IBlock;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -30,6 +32,9 @@ public class Block extends GameEntity implements Interactable, Animatable {
 
     public void step() {
         if (blockList.size() != 0) {
+            if (Globals.gameOver) {
+                new TableBlock(pane, Globals.BLOCK_SIZE*2, Globals.BLOCK_SIZE*5, "game_over.png");
+            }
             boolean shouldSave = false;
             for (GameEntity gameEntity : blockList) {
                 Point2D point2D = new Point2D(gameEntity.getX(), gameEntity.getY() + Globals.BLOCK_SIZE);
@@ -44,6 +49,7 @@ public class Block extends GameEntity implements Interactable, Animatable {
                     gameEntity.setY(gameEntity.getY() + Globals.BLOCK_SIZE);
                 }
             }
+
         }
     }
 
@@ -66,7 +72,9 @@ public class Block extends GameEntity implements Interactable, Animatable {
                 setBlockNewPosition();
             }
             Random rnd = new Random();
-            BlockTypes.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
+            if (!Globals.gameOver) {
+                BlockTypes.createNewBlock(rnd.nextInt(Globals.blocks.size()), pane);
+            }
         }
     }
 

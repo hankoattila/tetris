@@ -19,6 +19,7 @@ public class Globals {
     public static final int WINDOW_WIDTH = BLOCK_SIZE * WIDTH;
     public static final int WINDOW_HEIGHT = BLOCK_SIZE * HEIGHT;
     public static final int END_OF_WINDOW = WINDOW_HEIGHT - BLOCK_SIZE;
+    public static boolean gameOver = false;
     public static List<Enum> blocks = new ArrayList<Enum>();
     public static List<Integer> removeLine = new ArrayList<>();
     public static HashMap<Point2D, String> positions = new HashMap<>();
